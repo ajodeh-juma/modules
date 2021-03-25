@@ -5,15 +5,10 @@ nextflow.enable.dsl = 2
 include { HOMER_ANNOTATEPEAKS } from '../../../../software/homer/annotatepeaks/main.nf' addParams( options: [:] )
 
 workflow test_homer_annotatepeaks {
-
-    def fasta = file("${launchDir}/tests/data/genomics/sarscov2/fasta/test_genome.fasta", checkIfExists: true)
-    def gtf = file("${launchDir}/tests/data/genomics/sarscov2/gtf/test_genome.gtf", checkIfExists: true)
-
-    def input = []
     input = [ [ id:'test'],
-                file("${launchDir}/tests/data/genomics/sarscov2/bed/test.bed", checkIfExists: true) ]
-
-
-
-    HOMER_ANNOTATEPEAKS ( input, fasta, gtf)
+              file(params.test_data['sarscov2']['genome']['test_bed'], checkIfExists: true)
+            ]
+    fasta = file(params.test_data['sarscov2']['genome']['genome_fasta'], checkIfExists: true)
+    gtf   = file(params.test_data['sarscov2']['genome']['genome_gtf'], checkIfExists: true)
+    HOMER_ANNOTATEPEAKS ( input, fasta, gtf )
 }
