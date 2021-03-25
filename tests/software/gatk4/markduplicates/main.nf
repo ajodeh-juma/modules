@@ -12,4 +12,3 @@ workflow test_gatk4_markduplicates {
 
     GATK4_MARKDUPLICATES ( input )
 }
-
